@@ -9,12 +9,17 @@ import {
     Image,
 } from 'react-native';
 import { Icon } from 'react-native-basic-elements';
-import { screenHeight, screenWidth } from '../Dimensions/dimensionsfile';
-import Inputcust from '../globalComp/Inputcust';
-import BtnCust from '../globalComp/BtnCust';
+import Inputcust from '../../../component/Inputcust';
+import BtnCust from '../../../component/BtnCust';
 import RBSheet from 'react-native-raw-bottom-sheet';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { NavigationTypeChecking } from '../../../routs/NavigationTypes';
+import { SizeConfig } from '../../../component/SizeConfig';
+import { Css } from '../Styles';
 
-export default function CreateNewPass() {
+type CreatePasswordProps = NativeStackScreenProps<NavigationTypeChecking, 'CreatePassword'>
+
+const CreatePassword: React.FC<CreatePasswordProps> = () => {
     const [newPassword, onChangeNewPassword] = useState('');
     const [conPassword, onChangeConPassword] = useState('');
     const [isNewPasswordVisible, setNewPasswordVisible] = useState(false);
@@ -40,18 +45,27 @@ export default function CreateNewPass() {
 
     return (
         <ScrollView style={{ flex: 1, backgroundColor: 'white' }}>
-            <View style={[styles.container, { position: 'relative', height: screenHeight * 100 }]}>
-                <StatusBar hidden={true} />
+            <View style={[styles.container, Css.layoutAlign]}>
+                <StatusBar
+                    translucent
+                    backgroundColor="rgba(255, 255, 255, 0)"
+                    barStyle={'dark-content'}
+                />
                 <View style={styles.innerContainer}>
                     {/* Back Button */}
-                    <Pressable style={styles.backButton}>
+                    {/* <Pressable
+                        style={styles.backButton}
+                        onPress={() => {
+                            navigation.pop()
+                        }}
+                    >
                         <Icon
                             name="chevron-left"
                             type="Octicons"
                             color="#1e3354"
-                            size={screenWidth * 5}
+                            size={SizeConfig.width * 5}
                         />
-                    </Pressable>
+                    </Pressable> */}
 
                     {/* Title Section */}
                     <View style={styles.titleContainer}>
@@ -70,16 +84,16 @@ export default function CreateNewPass() {
                                 inputStyle={[
                                     styles.inputStyle,
                                     (!isNewPasswordVisible && newPassword.length > 0) ? {
-                                        fontSize: screenWidth * 4,
+                                        fontSize: SizeConfig.width * 5,
                                         fontWeight: '700',
                                         letterSpacing: 3,
                                     } : {
-                                        fontSize: screenWidth * 4,
+                                        fontSize: SizeConfig.width * 4,
                                     }
                                 ]}
                                 onChangeFun={onChangeNewPassword}
                                 placeholder="New Password"
-                                placeholderColor="black"
+                                // placeholderColor="black"
                                 keyboardType="default"
                                 secureTextEntry={!isNewPasswordVisible}
                                 value={newPassword}
@@ -88,12 +102,13 @@ export default function CreateNewPass() {
                                 <Pressable
                                     onPress={() => setNewPasswordVisible(!isNewPasswordVisible)}
                                     style={styles.eyeIcon}
+                                    hitSlop={30}
                                 >
                                     <Image
                                         source={
                                             isNewPasswordVisible
-                                                ? require('../../assets/images/newpassword/eyeopen.png')
-                                                : require('../../assets/images/newpassword/eyeclose.png')
+                                                ? require('../../../assets/images/Login/eyeopen.png')
+                                                : require('../../../assets/images/Login/eyeclose.png')
                                         }
                                         style={styles.imageStyle}
                                     />
@@ -108,16 +123,16 @@ export default function CreateNewPass() {
                                 inputStyle={[
                                     styles.inputStyle,
                                     (!isConfPasswordVisible && conPassword.length > 0) ? {
-                                        fontSize: screenWidth * 4,
+                                        fontSize: SizeConfig.width * 5,
                                         fontWeight: '700',
                                         letterSpacing: 3,
                                     } : {
-                                        fontSize: screenWidth * 4,
+                                        fontSize: SizeConfig.width * 4,
                                     },
                                 ]}
                                 onChangeFun={onChangeConPassword}
                                 placeholder="Confirm Password"
-                                placeholderColor="black"
+                                // placeholderColor="black"
                                 keyboardType="default"
                                 secureTextEntry={!isConfPasswordVisible}
                                 value={conPassword}
@@ -126,12 +141,13 @@ export default function CreateNewPass() {
                                 <Pressable
                                     onPress={() => setConfPasswordVisible(!isConfPasswordVisible)}
                                     style={styles.eyeIcon}
+                                    hitSlop={30}
                                 >
                                     <Image
                                         source={
                                             isConfPasswordVisible
-                                                ? require('../../assets/images/newpassword/eyeopen.png')
-                                                : require('../../assets/images/newpassword/eyeclose.png')
+                                                ? require('../../../assets/images/Login/eyeopen.png')
+                                                : require('../../../assets/images/Login/eyeclose.png')
                                         }
                                         style={styles.imageStyle}
                                     />
@@ -148,11 +164,11 @@ export default function CreateNewPass() {
                         <BtnCust
                             buttonContent="Confirm"
                             buttonStyle={{
-                                height: screenHeight * 6,
-                                width: screenWidth * 35,
+                                height: SizeConfig.height * 6,
+                                width: SizeConfig.width * 35,
                                 alignItems: 'center',
                                 justifyContent: 'center',
-                                borderRadius: 25,
+                                borderRadius: SizeConfig.width * 10,
                                 backgroundColor: isButtonEnabled ? '#000000' : '#b9b9b9',
                             }}
                             buttonTextStyle={styles.buttonText}
@@ -170,29 +186,34 @@ export default function CreateNewPass() {
                             backgroundColor: 'rgba(0, 0, 0, 0.5)',
                         },
                         container: {
-                            borderTopLeftRadius: 40,
-                            borderTopRightRadius: 40,
-                            paddingHorizontal: 20,
-                            height: screenHeight * 45,
+                            borderTopLeftRadius: SizeConfig.width * 10,
+                            borderTopRightRadius: SizeConfig.width * 10,
+                            paddingHorizontal: SizeConfig.width * 7,
+                            height: SizeConfig.height * 40,
+                            // backgroundColor : 'red'
                         },
                         draggableIcon: {
                             backgroundColor: '#8c8e93',
                         },
                     }}
                     dragOnContent={true}
-                    draggable={true}
+                    // draggable={true}
                     closeDuration={0}
-                    
+
                 >
                     <View style={styles.bottomSheetContent}>
                         <View style={styles.successIconContainer}>
                             <Image
-                                source={require('../../assets/images/newpassword/cngsuccess.png')}
+                                source={require('../../../assets/images/Login/cngsuccess.png')}
                                 style={styles.successIcon}
                             />
                         </View>
-                        <Text style={styles.successMessage}>Your password has been changed</Text>
-                        <Text style={styles.successSubtitle}>Welcome back! Discover now!</Text>
+                        <View style={{
+                            gap: SizeConfig.height * 1.5
+                        }}>
+                            <Text style={styles.successMessage}>Your password has been changed</Text>
+                            <Text style={styles.successSubtitle}>Welcome back! Discover now!</Text>
+                        </View>
                         <BtnCust
                             buttonContent="Browse home"
                             buttonStyle={styles.successButton}
@@ -202,6 +223,7 @@ export default function CreateNewPass() {
                     </View>
                 </RBSheet>
             </View>
+
         </ScrollView>
     );
 }
@@ -210,41 +232,50 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: 'center',
-        paddingHorizontal: screenWidth * 5.4,
-        paddingVertical: screenHeight * 7,
+        // paddingHorizontal: SizeConfig.width * 7,
+        // paddingVertical: SizeConfig.height * 8,
+        position: 'relative',
+        height: SizeConfig.height * 100
     },
     innerContainer: {
         justifyContent: 'space-around',
-        gap: screenHeight * 3,
+        gap: SizeConfig.height * 3,
+        // backgroundColor : 'gray'
     },
     backButton: {
         backgroundColor: 'white',
-        width: screenWidth * 8,
-        height: screenWidth * 8,
+        width: SizeConfig.width * 8,
+        height: SizeConfig.width * 8,
         alignItems: 'center',
         justifyContent: 'center',
-        borderRadius: 50,
+        borderRadius: SizeConfig.width * 50,
         elevation: 2,
     },
     titleContainer: {
-        gap: screenHeight * 2,
-        paddingTop: screenHeight * 3,
+        gap: SizeConfig.height * 2,
+        paddingTop: SizeConfig.height * 3,
+        // backgroundColor : 'green'
     },
     title: {
         fontFamily: 'RedHatDisplay-Bold',
-        fontSize: screenWidth * 5,
+        fontSize: SizeConfig.fontSize * 7,
+        color: 'black'
     },
     subTitle: {
         fontFamily: 'RedHatDisplay-Light',
-        fontSize: screenWidth * 3.5,
+        fontSize: SizeConfig.fontSize * 4,
+        color: 'black'
     },
     inputFieldsContainer: {
-        gap: screenWidth * 5,
-        height: screenHeight * 30,
+        gap: SizeConfig.width * 5,
+        height: SizeConfig.height * 30,
         justifyContent: 'center',
     },
     inputContainer: {
         position: 'relative',
+        // alignItems : 'center',
+        justifyContent: 'center',
+        // backgroundColor : 'red'
     },
     label: {
         color: '#A6ABC4',
@@ -256,21 +287,24 @@ const styles = StyleSheet.create({
         borderBottomColor: '#d6d6d6',
         borderBottomWidth: 1,
         fontFamily: 'ProductSans-Light',
+        color: 'black',
+        fontSize: SizeConfig.fontSize * 4
     },
     eyeIcon: {
         position: 'absolute',
         right: 0,
-        top: 20,
+        top: 27,
     },
     imageStyle: {
-        width: screenWidth * 4,
-        height: screenWidth * 4,
+        width: SizeConfig.width * 4,
+        height: SizeConfig.width * 4,
         resizeMode: 'center',
+        // backgroundColor : 'red'
     },
     errorMessage: {
         color: 'red',
-        fontSize: screenWidth * 3,
-        marginTop: screenHeight * 2,
+        fontSize: SizeConfig.fontSize * 3,
+        marginTop: SizeConfig.height * 2,
     },
     buttonContainer: {
         alignItems: 'center',
@@ -279,40 +313,48 @@ const styles = StyleSheet.create({
     buttonText: {
         color: 'white',
         fontFamily: 'RedHatDisplay-SemiBold',
-        fontSize: screenWidth * 3.5,
+        fontSize: SizeConfig.fontSize * 3.5,
     },
     bottomSheetContent: {
-        flex: 1,
         alignItems: 'center',
         justifyContent: 'space-evenly',
+        height: SizeConfig.height * 35
     },
     successIconContainer: {
         backgroundColor: '#FAFAFA',
-        width: screenWidth * 20,
-        height: screenWidth * 20,
+        width: SizeConfig.width * 20,
+        height: SizeConfig.width * 20,
         alignItems: 'center',
         justifyContent: 'center',
-        borderRadius: 50,
+        borderRadius: SizeConfig.width * 50,
     },
     successIcon: {
-        width: screenWidth * 11,
-        height: screenWidth * 11,
+        width: SizeConfig.width * 12,
+        height: SizeConfig.width * 12,
         resizeMode: 'center',
     },
     successMessage: {
         textAlign: 'center',
-        fontSize: screenWidth * 4,
+        fontSize: SizeConfig.fontSize * 4.5,
+        color: '#332218',
+        fontFamily: 'RedHatDisplay-Medium'
     },
     successSubtitle: {
         textAlign: 'center',
         color: '#332218',
+        fontFamily: 'RedHatDisplay-Light',
+        fontSize: SizeConfig.fontSize * 4
     },
     successButton: {
-        height: screenHeight * 7,
-        width: screenWidth * 70,
+        height: SizeConfig.height * 7,
+        // width: SizeConfig.width * 70,
+        width: '100%',
         alignItems: 'center',
         justifyContent: 'center',
-        borderRadius: 30,
+        borderRadius: SizeConfig.width * 10,
         backgroundColor: '#000000',
     },
 });
+
+
+export default CreatePassword

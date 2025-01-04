@@ -3,7 +3,7 @@ import React, { ReactNode } from 'react';
 
 interface ButtonCompProps {
   buttonContent: string;
-  buttonStyle?: ViewStyle;
+  buttonStyle?: ViewStyle | ViewStyle[];
   buttonTextStyle?: TextStyle;
   prefixIcon?: ReactNode;
   surfixIcon?: ReactNode;

@@ -1,182 +1,209 @@
-import { Image, StatusBar, StyleSheet, Text, TextInput, View } from 'react-native'
+import { Image, Pressable, ScrollView, StatusBar, StyleSheet, Text, View } from 'react-native'
 import React, { useState } from 'react'
-import { screenHeight, screenWidth } from '../Dimensions/dimensionsfile';
-import Inputcust from '../globalComp/Inputcust';
-import BtnCust from '../globalComp/BtnCust';
+import Inputcust from '../../component/Inputcust';
+import BtnCust from '../../component/BtnCust';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { NavigationTypeChecking } from '../../routs/NavigationTypes';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { SizeConfig } from '../../component/SizeConfig';
+import { Css } from './Styles';
+import SocialImgLinks from './Component/SocialImgLinks';
+import CustomSnackBar from '../../component/CustomSnackBar';
+import Snackbar from 'react-native-snackbar';
 
-export default function SignUpScreen() {
+type LogInScreenProps = NativeStackScreenProps<NavigationTypeChecking, 'LogInScreen'>
+
+const LogInScreen: React.FC<LogInScreenProps> = ({ navigation }) => {
 
     const [email, onChangeEmail] = useState('');
     const [password, onChangePassword] = useState('');
 
     return (
-        <View style={{
-            backgroundColor: 'white',
-            flex: 1,
-            paddingHorizontal: screenWidth * 8,
-            paddingVertical: screenHeight * 5
-        }}>
+        <SafeAreaView
+            style={{
+                flex: 1,
+                backgroundColor: 'white',
+            }}
+        >
+            <ScrollView style = {{flex : 1  }}>
+                <View style={[styles.Container, Css.layoutAlign]}>
 
-            <StatusBar
-                translucent
-                backgroundColor="rgba(255, 255, 255, 0)"
-                barStyle={'dark-content'}
-            />
-
-            <View style={{
-                height: screenHeight * 18,
-                alignItems: 'flex-start',
-                justifyContent: 'center',
-                gap: screenHeight * 2,
-                paddingTop: screenHeight * 5,
-            }} >
-                <Text style={{
-                    fontSize: screenWidth * 5.5,
-                    fontFamily: 'RedHatDisplay-Bold',
-                }}>
-                    Log into
-                </Text>
-                <Text
-                    style={{
-
-                        fontSize: screenWidth * 5.5,
-                        fontFamily: 'RedHatDisplay-Bold',
-                    }}
-                >
-                    your account
-                </Text>
-            </View>
-
-            <View style={{
-                height: screenHeight * 33,
-                justifyContent: 'center',
-                gap: screenHeight * 2,
-                // backgroundColor : 'green'
-            }}>
-
-                <Inputcust
-                    inputStyle={styles.inputStyle}
-                    onChangeFun={onChangeEmail}
-                    placeholder="Email address"
-                    placeholderColor={'black'}
-                    keyboardType="numeric"
-                    value={email}
-                />
-
-
-                <View
-                    style={{
-                        gap: screenHeight * 3
-                    }}
-                >
-                    <Inputcust
-                        inputStyle={styles.inputStyle}
-                        onChangeFun={onChangePassword}
-                        placeholder="Password"
-                        placeholderColor={'black'}
-                        keyboardType="numeric"
-                        value={password}
+                    <StatusBar
+                        translucent
+                        backgroundColor="rgba(255, 255, 255, 0)"
+                        barStyle={'dark-content'}
                     />
-                    <Text style={{ textAlign: 'right', fontFamily: 'RedHatDisplay-Light' }} >
-                        Forgot Password?
+
+                    <Text style={styles.headerText}>
+                        Log into{"\n"}
+                        your account
                     </Text>
-                </View>
 
-            </View>
+                    <View>
 
-            <View
-                style={{
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                    // paddingTop: screenHeight * 2.5,
-                    flex: 1,
-                }}
-            >
+                        <Inputcust
+                            inputStyle={[styles.inputStyle, { marginTop: SizeConfig.height * 8 }]}
+                            onChangeFun={onChangeEmail}
+                            placeholder="Email address"
+                            keyboardType="email-address"
+                            value={email}
+                        />
 
-                <View style={{ gap: screenHeight * 2 }} >
-                    <BtnCust
-                        buttonContent='LOG IN'
-                        buttonStyle={{
-                            backgroundColor: '#2D201C',
-                            height: screenHeight * 6,
-                            width: screenWidth * 30,
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            borderRadius: 25
-                        }}
-                        buttonTextStyle={{
-                            color: 'white',
-                            fontFamily: 'RedHatDisplay-SemiBold',
-                            fontSize: screenWidth * 3.5
-                        }}
-                    />
-                    <Text
-                        style={{
-                            textAlign: 'center',
-                            color: '#666666',
-                            fontFamily: 'RedHatDisplay-Light'
-                        }}
-                    >
-                        or log in with
-                    </Text>
+
+                        <View
+                            style={styles.passwordContainer}
+                        >
+                            <Inputcust
+                                inputStyle={styles.inputStyle}
+                                onChangeFun={onChangePassword}
+                                placeholder="Password"
+                                keyboardType="email-address"
+                                value={password}
+                            />
+                            <Text style={{
+                                textAlign: 'right',
+                                fontFamily: 'RedHatDisplay-Light',
+                                fontSize: SizeConfig.fontSize * 3.5
+                            }}
+                                onPress={() => {
+                                    navigation.navigate('EnterEmailScreen')
+                                }} >
+                                Forgot Password?
+                            </Text>
+                        </View>
+
+                    </View>
+
                     <View
-                        style={{
-                            flexDirection: 'row',
-                            gap: screenWidth * 3
-                        }}
+                        style={styles.bottomContainer}
                     >
-                        <Image
-                            source={require('../../assets/images/signup/apple.png')}
-                            style={[styles.imgStyle]}
-                        />
-                        <Image
-                            source={require('../../assets/images/signup/google.png')}
-                            style={[styles.imgStyle]}
-                        />
-                        <Image
-                            source={require('../../assets/images/signup/facebook.png')}
-                            style={[styles.imgStyle]}
-                        />
 
+                        <View style={styles.bottomSubContainer} >
+                            <BtnCust
+                                buttonContent='LOG IN'
+                                buttonStyle={styles.btnContainer}
+                                buttonTextStyle={styles.btnText}
+                                onPushFun={() => {
+                                    if (!(email.length > 0 && password.length > 0)) {
+                                        CustomSnackBar('Please fill all the details !!!', 'red')
+                                    }
+                                    else {
+                                        CustomSnackBar('Welcome to the home screen', 'green')
+                                    }
+                                }}
+                            />
+                            <Text
+                                style={styles.dumyText}
+                            >
+                                or log in with
+                            </Text>
+                            <View>
+                                <View>
+                                    <SocialImgLinks />
+                                </View>
+                            </View>
+                        </View>
+
+                        <View style={styles.navigationContainer}>
+                            <View style={styles.navigationSubContainer} >
+                                <Text style={styles.navigationDumyText}>
+                                    Don’t have an account?
+                                </Text>
+                                <Pressable hitSlop={100} >
+                                    <Text style={styles.navigationLinkText}
+                                        onPress={() => {
+                                            navigation.navigate('SignUpScreen')
+                                        }}
+                                    >
+                                        Sign Up
+                                    </Text>
+                                </Pressable>
+                            </View>
+                        </View>
                     </View>
-                </View>
 
-                <View style={{ marginBottom: screenHeight * 5 }}>
-                    <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }} >
-                        <Text style={{
-                            width: screenWidth * 32,
-                            fontFamily: 'RedHatDisplay-Medium',
-                            fontSize: screenWidth * 3,
-                        }}>
-                            Don’t have an account?
-                        </Text>
-                        <Text style={{
-                            width: screenWidth * 15,
-                            textDecorationLine: 'underline',
-                            fontFamily: 'RedHatDisplay-Medium',
-                            fontSize: screenWidth * 3,
-                            textDecorationStyle: 'dashed',
-                            // backgroundColor : 'green',
-                            textAlign: 'center'
-                        }}>
-                            Sign Up
-                        </Text>
-                    </View>
                 </View>
-            </View>
-
-        </View>
+            </ScrollView>
+        </SafeAreaView>
     )
 }
 
 const styles = StyleSheet.create({
+    Container: {
+        flex: 1, 
+    },
+    headerText: {
+        fontSize: SizeConfig.width * 7,
+        fontFamily: 'RedHatDisplay-Bold',
+        lineHeight: SizeConfig.height * 6
+    },
+    passwordContainer: {
+        gap: SizeConfig.height * 3,
+        marginBottom: SizeConfig.height * 5
+    },
     inputStyle: {
         borderBottomColor: '#d6d6d6',
         borderBottomWidth: 1,
-        fontFamily: 'ProductSans-Light'
+        fontFamily: 'ReadHatDisplay-Light',
+        marginTop: SizeConfig.height * 2,
+        fontSize: SizeConfig.fontSize * 4,
+        color: 'black'
     },
     imgStyle: {
-        width: screenWidth * 9,
-        height: screenWidth * 9
+        width: SizeConfig.width * 12,
+        height: SizeConfig.width * 12
+    },
+    bottomContainer: {
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        flex: 1,
+    },
+    bottomSubContainer: { gap: SizeConfig.height * 2, alignItems: 'center', justifyContent: 'center' },
+    btnContainer: {
+        backgroundColor: '#2D201C',
+        height: SizeConfig.height * 6,
+        width: SizeConfig.width * 40,
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderRadius: SizeConfig.width * 10
+    },
+    btnText: {
+        color: 'white',
+        fontFamily: 'RedHatDisplay-SemiBold',
+        fontSize: SizeConfig.fontSize * 3.5
+    },
+    dumyText: {
+        textAlign: 'center',
+        color: '#666666',
+        fontFamily: 'RedHatDisplay-Light'
+    },
+    linkContainer: {
+        flexDirection: 'row',
+        gap: SizeConfig.width * 5
+    },
+    navigationContainer: {
+        marginTop: SizeConfig.height * 15,
+        alignItems: 'center',
+        justifyContent: 'center', 
+    },
+    navigationSubContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    navigationDumyText: {
+        width: SizeConfig.width * 42.5,
+        fontFamily: 'RedHatDisplay-Medium',
+        fontSize: SizeConfig.fontSize * 4, 
+    },
+    navigationLinkText: {
+        width: SizeConfig.width * 15,
+        textDecorationLine: 'underline',
+        fontFamily: 'RedHatDisplay-Medium',
+        fontSize: SizeConfig.fontSize * 3.5,
+        textDecorationStyle: 'dashed', 
+        textAlign: 'center'
     }
 })
+
+export default LogInScreen

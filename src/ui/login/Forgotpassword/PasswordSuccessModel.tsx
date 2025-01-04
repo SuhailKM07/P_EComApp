@@ -3,7 +3,7 @@ import { View, Text, StyleSheet } from 'react-native';
 import RBSheet from 'react-native-raw-bottom-sheet';
 import { GestureHandlerRootView, PanGestureHandler } from 'react-native-gesture-handler';
 
-export default function BTMSheet() {
+export default function passwordSuccessModel() {
   const refRBSheet = useRef<any>();
 
   // Handler for gesture detection
