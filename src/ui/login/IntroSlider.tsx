@@ -42,8 +42,13 @@ const IntroSlider: React.FC<IntroSliderProps> = ({ navigation, route }) => {
                 flex: 1,
             }}
         >
+            <StatusBar
+                translucent
+                backgroundColor="rgba(255, 255, 255, 0)"
+                barStyle="dark-content"
+            />
             <View style={styles.container}>
-                <StatusBar translucent backgroundColor="rgba(255, 255, 255, 0)" barStyle="dark-content" />
+
 
                 {/* Text Section */}
                 <View style={styles.textContainer}>
@@ -205,8 +210,9 @@ const styles = StyleSheet.create({
     },
     textCompStyle: {
         textAlign: 'center',
-        color: 'white'
+        color: 'white',
+        fontSize: SizeConfig.fontSize * 4
     }
 });
-``
+
 export default IntroSlider;

@@ -160,7 +160,8 @@ const styles = StyleSheet.create({
     },
     textCompStyle: {
         textAlign: 'center',
-        color: 'white'
+        color: 'white',
+        fontSize: SizeConfig.fontSize * 4
     }
 });
 

@@ -4,8 +4,7 @@ import { SizeConfig } from "../../component/SizeConfig"
 export const componentStyles = StyleSheet.create({
     layoutAlign: {
         paddingHorizontal: SizeConfig.width * 7,
-        paddingVertical: SizeConfig.height * 3.5,
-        flex : 1,
-        backgroundColor :'white'
+        paddingVertical: SizeConfig.height * 2,
+        flex : 1
     }
 })

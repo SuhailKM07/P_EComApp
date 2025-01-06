@@ -46,7 +46,7 @@ export default function Inputcust({
                 placeholderTextColor={placeholderColor}
                 keyboardType={keyboardType}
                 secureTextEntry={secureTextEntry}
-                maxLength={20}
+                maxLength={29}
             />
             {surfixIcon && <View style={{ marginLeft: 8 }}>{surfixIcon}</View>}
         </View>

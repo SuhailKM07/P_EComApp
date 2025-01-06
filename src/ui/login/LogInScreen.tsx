@@ -6,7 +6,7 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { NavigationTypeChecking } from '../../routs/NavigationTypes';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { SizeConfig } from '../../component/SizeConfig';
-import { Css } from './Styles';
+import { componentStyles } from './Styles';
 import SocialImgLinks from './Component/SocialImgLinks';
 import CustomSnackBar from '../../component/CustomSnackBar';
 import Snackbar from 'react-native-snackbar';
@@ -20,108 +20,90 @@ const LogInScreen: React.FC<LogInScreenProps> = ({ navigation }) => {
 
     return (
         <SafeAreaView
-            style={{
-                flex: 1,
-                backgroundColor: 'white',
-            }}
+            style={componentStyles.layoutAlign}
         >
-            <ScrollView style = {{flex : 1  }}>
-                <View style={[styles.Container, Css.layoutAlign]}>
-
-                    <StatusBar
-                        translucent
-                        backgroundColor="rgba(255, 255, 255, 0)"
-                        barStyle={'dark-content'}
+            <StatusBar
+                translucent
+                backgroundColor="rgba(255, 255, 255, 0)"
+                barStyle={'dark-content'}
+            />
+            <ScrollView style={{ flex: 1 }}>
+                <Text style={styles.headerText}>
+                    Log into{"\n"}
+                    your account
+                </Text>
+                <View>
+                    <Inputcust
+                        inputStyle={[styles.inputStyle, { marginTop: SizeConfig.height * 8 }]}
+                        onChangeFun={onChangeEmail}
+                        placeholder="Email address"
+                        keyboardType="email-address"
+                        value={email}
                     />
 
-                    <Text style={styles.headerText}>
-                        Log into{"\n"}
-                        your account
-                    </Text>
-
-                    <View>
-
-                        <Inputcust
-                            inputStyle={[styles.inputStyle, { marginTop: SizeConfig.height * 8 }]}
-                            onChangeFun={onChangeEmail}
-                            placeholder="Email address"
-                            keyboardType="email-address"
-                            value={email}
-                        />
-
-
-                        <View
-                            style={styles.passwordContainer}
-                        >
-                            <Inputcust
-                                inputStyle={styles.inputStyle}
-                                onChangeFun={onChangePassword}
-                                placeholder="Password"
-                                keyboardType="email-address"
-                                value={password}
-                            />
-                            <Text style={{
-                                textAlign: 'right',
-                                fontFamily: 'RedHatDisplay-Light',
-                                fontSize: SizeConfig.fontSize * 3.5
-                            }}
-                                onPress={() => {
-                                    navigation.navigate('EnterEmailScreen')
-                                }} >
-                                Forgot Password?
-                            </Text>
-                        </View>
-
-                    </View>
-
                     <View
-                        style={styles.bottomContainer}
+                        style={styles.passwordContainer}
                     >
+                        <Inputcust
+                            inputStyle={styles.inputStyle}
+                            onChangeFun={onChangePassword}
+                            placeholder="Password"
+                            keyboardType="email-address"
+                            value={password}
+                        />
+                        <Text style={styles.forgotPassword}
+                            onPress={() => {
+                                navigation.navigate('EnterEmailScreen')
+                            }} >
+                            Forgot Password?
+                        </Text>
+                    </View>
 
-                        <View style={styles.bottomSubContainer} >
-                            <BtnCust
-                                buttonContent='LOG IN'
-                                buttonStyle={styles.btnContainer}
-                                buttonTextStyle={styles.btnText}
-                                onPushFun={() => {
-                                    if (!(email.length > 0 && password.length > 0)) {
-                                        CustomSnackBar('Please fill all the details !!!', 'red')
-                                    }
-                                    else {
-                                        CustomSnackBar('Welcome to the home screen', 'green')
-                                    }
-                                }}
-                            />
-                            <Text
-                                style={styles.dumyText}
-                            >
-                                or log in with
-                            </Text>
+                </View>
+
+                <View
+                    style={styles.bottomContainer}
+                >
+
+                    <View style={styles.bottomSubContainer} >
+                        <BtnCust
+                            buttonContent='LOG IN'
+                            buttonStyle={styles.btnContainer}
+                            buttonTextStyle={styles.btnText}
+                            onPushFun={() => {
+                                if (!(email.length > 0 && password.length > 0)) {
+                                    CustomSnackBar('Please fill all the details !!!', 'red')
+                                }
+                                else {
+                                    CustomSnackBar('Welcome to the home screen', 'green')
+                                    navigation.navigate('BottomTabBar')
+                                }
+                            }}
+                        />
+                        <Text
+                            style={styles.dumyText}
+                        >
+                            or log in with
+                        </Text>
+                        <View>
                             <View>
-                                <View>
-                                    <SocialImgLinks />
-                                </View>
-                            </View>
-                        </View>
-
-                        <View style={styles.navigationContainer}>
-                            <View style={styles.navigationSubContainer} >
-                                <Text style={styles.navigationDumyText}>
-                                    Don’t have an account?
-                                </Text>
-                                <Pressable hitSlop={100} >
-                                    <Text style={styles.navigationLinkText}
-                                        onPress={() => {
-                                            navigation.navigate('SignUpScreen')
-                                        }}
-                                    >
-                                        Sign Up
-                                    </Text>
-                                </Pressable>
+                                <SocialImgLinks />
                             </View>
                         </View>
                     </View>
 
+                    <View style={styles.navigationContainer}>
+                        <Text style={styles.navigationDumyText} onPress={() => {
+                            navigation.navigate('SignUpScreen')
+                        }}>
+                            Don’t have an account? {''}
+                            <Text style={styles.navigationLinkText}
+
+                            >
+                                Sign Up
+                            </Text>
+                        </Text>
+                    </View>
                 </View>
             </ScrollView>
         </SafeAreaView>
@@ -129,13 +111,11 @@ const LogInScreen: React.FC<LogInScreenProps> = ({ navigation }) => {
 }
 
 const styles = StyleSheet.create({
-    Container: {
-        flex: 1, 
-    },
+
     headerText: {
         fontSize: SizeConfig.width * 7,
         fontFamily: 'RedHatDisplay-Bold',
-        lineHeight: SizeConfig.height * 6
+        // lineHeight: SizeConfig.height * 6
     },
     passwordContainer: {
         gap: SizeConfig.height * 3,
@@ -158,7 +138,11 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         flex: 1,
     },
-    bottomSubContainer: { gap: SizeConfig.height * 2, alignItems: 'center', justifyContent: 'center' },
+    bottomSubContainer: {
+        gap: SizeConfig.height * 2,
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
     btnContainer: {
         backgroundColor: '#2D201C',
         height: SizeConfig.height * 6,
@@ -175,7 +159,8 @@ const styles = StyleSheet.create({
     dumyText: {
         textAlign: 'center',
         color: '#666666',
-        fontFamily: 'RedHatDisplay-Light'
+        fontFamily: 'RedHatDisplay-Light',
+        fontSize: SizeConfig.fontSize * 2.9
     },
     linkContainer: {
         flexDirection: 'row',
@@ -184,7 +169,7 @@ const styles = StyleSheet.create({
     navigationContainer: {
         marginTop: SizeConfig.height * 15,
         alignItems: 'center',
-        justifyContent: 'center', 
+        justifyContent: 'center',
     },
     navigationSubContainer: {
         flexDirection: 'row',
@@ -192,17 +177,19 @@ const styles = StyleSheet.create({
         justifyContent: 'center'
     },
     navigationDumyText: {
-        width: SizeConfig.width * 42.5,
         fontFamily: 'RedHatDisplay-Medium',
-        fontSize: SizeConfig.fontSize * 4, 
+        fontSize: SizeConfig.fontSize * 4,
     },
     navigationLinkText: {
-        width: SizeConfig.width * 15,
         textDecorationLine: 'underline',
         fontFamily: 'RedHatDisplay-Medium',
         fontSize: SizeConfig.fontSize * 3.5,
-        textDecorationStyle: 'dashed', 
         textAlign: 'center'
+    },
+    forgotPassword: {
+        textAlign: 'right',
+        fontFamily: 'RedHatDisplay-Light',
+        fontSize: SizeConfig.fontSize * 3.5
     }
 })
 

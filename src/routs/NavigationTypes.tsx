@@ -8,4 +8,5 @@ export interface NavigationTypeChecking extends ParamListBase {
     EnterEmailScreen : undefined
     VerificationCodeScreen : undefined
     CreatePassword : undefined
+    BottomTabBar : undefined
 }

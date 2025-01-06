@@ -15,7 +15,8 @@ import RBSheet from 'react-native-raw-bottom-sheet';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { NavigationTypeChecking } from '../../../routs/NavigationTypes';
 import { SizeConfig } from '../../../component/SizeConfig';
-import { Css } from '../Styles';
+import { componentStyles } from '../Styles';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 type CreatePasswordProps = NativeStackScreenProps<NavigationTypeChecking, 'CreatePassword'>
 
@@ -44,29 +45,15 @@ const CreatePassword: React.FC<CreatePasswordProps> = () => {
     const isButtonEnabled = newPassword.trim() !== '' && conPassword.trim() !== '';
 
     return (
-        <ScrollView style={{ flex: 1, backgroundColor: 'white' }}>
-            <View style={[styles.container, Css.layoutAlign]}>
-                <StatusBar
-                    translucent
-                    backgroundColor="rgba(255, 255, 255, 0)"
-                    barStyle={'dark-content'}
-                />
-                <View style={styles.innerContainer}>
-                    {/* Back Button */}
-                    {/* <Pressable
-                        style={styles.backButton}
-                        onPress={() => {
-                            navigation.pop()
-                        }}
-                    >
-                        <Icon
-                            name="chevron-left"
-                            type="Octicons"
-                            color="#1e3354"
-                            size={SizeConfig.width * 5}
-                        />
-                    </Pressable> */}
 
+        <SafeAreaView style={[styles.container, componentStyles.layoutAlign]}>
+            <StatusBar
+                translucent
+                backgroundColor="rgba(255, 255, 255, 0)"
+                barStyle={'dark-content'}
+            />
+            <ScrollView style={{ flex: 1 }}>
+                <View style={styles.innerContainer}>
                     {/* Title Section */}
                     <View style={styles.titleContainer}>
                         <Text style={styles.title}>Create new password</Text>
@@ -84,11 +71,11 @@ const CreatePassword: React.FC<CreatePasswordProps> = () => {
                                 inputStyle={[
                                     styles.inputStyle,
                                     (!isNewPasswordVisible && newPassword.length > 0) ? {
-                                        fontSize: SizeConfig.width * 5,
+                                        fontSize: SizeConfig.fontSize * 5,
                                         fontWeight: '700',
-                                        letterSpacing: 3,
+                                        letterSpacing: 2,
                                     } : {
-                                        fontSize: SizeConfig.width * 4,
+                                        fontSize: SizeConfig.fontSize * 4,
                                     }
                                 ]}
                                 onChangeFun={onChangeNewPassword}
@@ -123,16 +110,15 @@ const CreatePassword: React.FC<CreatePasswordProps> = () => {
                                 inputStyle={[
                                     styles.inputStyle,
                                     (!isConfPasswordVisible && conPassword.length > 0) ? {
-                                        fontSize: SizeConfig.width * 5,
+                                        fontSize: SizeConfig.fontSize * 5,
                                         fontWeight: '700',
-                                        letterSpacing: 3,
+                                        letterSpacing: 2,
                                     } : {
-                                        fontSize: SizeConfig.width * 4,
+                                        fontSize: SizeConfig.fontSize * 4,
                                     },
                                 ]}
                                 onChangeFun={onChangeConPassword}
                                 placeholder="Confirm Password"
-                                // placeholderColor="black"
                                 keyboardType="default"
                                 secureTextEntry={!isConfPasswordVisible}
                                 value={conPassword}
@@ -154,10 +140,9 @@ const CreatePassword: React.FC<CreatePasswordProps> = () => {
                                 </Pressable>
                             )}
                         </View>
+                        {/* Error Message */}
+                        {errorMessage !== '' && <Text style={styles.errorMessage}>{errorMessage}</Text>}
                     </View>
-
-                    {/* Error Message */}
-                    {errorMessage !== '' && <Text style={styles.errorMessage}>{errorMessage}</Text>}
 
                     {/* Confirm Button */}
                     <View style={styles.buttonContainer}>
@@ -190,7 +175,6 @@ const CreatePassword: React.FC<CreatePasswordProps> = () => {
                             borderTopRightRadius: SizeConfig.width * 10,
                             paddingHorizontal: SizeConfig.width * 7,
                             height: SizeConfig.height * 40,
-                            // backgroundColor : 'red'
                         },
                         draggableIcon: {
                             backgroundColor: '#8c8e93',
@@ -222,9 +206,9 @@ const CreatePassword: React.FC<CreatePasswordProps> = () => {
                         />
                     </View>
                 </RBSheet>
-            </View>
+            </ScrollView>
+        </SafeAreaView>
 
-        </ScrollView>
     );
 }
 
@@ -288,7 +272,7 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
         fontFamily: 'ProductSans-Light',
         color: 'black',
-        fontSize: SizeConfig.fontSize * 4
+        fontSize: SizeConfig.fontSize * 4,
     },
     eyeIcon: {
         position: 'absolute',
@@ -304,7 +288,6 @@ const styles = StyleSheet.create({
     errorMessage: {
         color: 'red',
         fontSize: SizeConfig.fontSize * 3,
-        marginTop: SizeConfig.height * 2,
     },
     buttonContainer: {
         alignItems: 'center',
