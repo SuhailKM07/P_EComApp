@@ -5,6 +5,12 @@ export const componentStyles = StyleSheet.create({
     layoutAlign: {
         paddingHorizontal: SizeConfig.width * 7,
         paddingVertical: SizeConfig.height * 2,
-        flex : 1
+        flex: 1
+    },
+    paddingHorizontalStyle: {
+        paddingHorizontal: SizeConfig.width * 7,
+    },
+    paddingVerticalStyle: {
+        paddingVertical: SizeConfig.height * 2,
     }
 })

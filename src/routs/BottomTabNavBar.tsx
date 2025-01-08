@@ -109,9 +109,9 @@ const BottomTabNavBar = () => {
 
 export default BottomTabNavBar;
 
-
 const styles = StyleSheet.create({
     BottomNavBar: {
+        backgroundColor: 'white',
         flexDirection: 'row',
         borderTopRightRadius: 20,
         borderTopLeftRadius: 20,
@@ -119,7 +119,7 @@ const styles = StyleSheet.create({
         gap: 10,
         alignItems: 'center',
         justifyContent: 'space-evenly',
-        elevation: 1
+        elevation: 2,
     },
     pressableBtn: {
         gap: 10,
