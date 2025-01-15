@@ -1,115 +1,176 @@
-import React, { useState } from 'react';
-import { ScrollView, Text, View, StyleSheet, Image } from 'react-native';
-import { SizeConfig } from '../../component/SizeConfig';
-import { Gesture, GestureHandlerRootView, GestureDetector } from 'react-native-gesture-handler';
-import Animated, { useSharedValue, withTiming, useAnimatedStyle, runOnJS } from 'react-native-reanimated';
-import { Icon } from 'react-native-basic-elements';
+import React, { useCallback, useRef, useMemo } from "react";
+import { StyleSheet, View, Text, Button, Image, StatusBar } from "react-native";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
+import BottomSheet, { BottomSheetScrollView } from "@gorhom/bottom-sheet";
+import { SizeConfig } from "../../component/SizeConfig";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { Icon } from "react-native-basic-elements";
+import { componentStyles } from "./styles";
+import NormalProductImgSlider from "./NormalProductImgSlider";
+import Details from "./BottomSheetDetailsSection/Details";
+import BtnCust from "../../component/BtnCust";
 
-export default () => {
-  const animatedHeight = useSharedValue(SizeConfig.height * 50);
-  const [gestureRecognize, setGestureRecognize] = useState(true);
-  let isInitial = useSharedValue(0)
+const DetailsScreen = () => {
+  // Hooks
+  const sheetRef = useRef<BottomSheet>(null);
 
-
-  const panGesture = Gesture.Pan()
-    .onEnd((e) => {
-      isInitial.value = e.translationY >= 0 ? 0 : 1
-    })
-    .onUpdate((e) => {
-      let targetHeight = e.translationY >= 0 ? SizeConfig.height * 50 : SizeConfig.height * 90;
-      if (isInitial.value > 0) {
-        e.translationY >= 0 ? runOnJS(setGestureRecognize)(true) : runOnJS(setGestureRecognize)(false)
-      }
-      animatedHeight.value = withTiming(targetHeight, { duration: 300 });
-    })
-    .enabled(gestureRecognize);
-  const animatedHeaderStyle = useAnimatedStyle(() => {
-    return {
-      height: animatedHeight.value,
-    };
-  });
+  // Callbacks
+  const handleSheetChange = useCallback((index: number) => {
+    console.log("handleSheetChange", index);
+  }, []);
 
   return (
-    <GestureHandlerRootView style={{ flex: 1 }}>
-      <View style={{ position: 'relative', flex: 1}}>
-        <GestureDetector gesture={panGesture}>
-          <Animated.View style={[styles.header, animatedHeaderStyle]}>
-            <ScrollView
-              onScroll={(event) => {
-                const contentOffsetY = event.nativeEvent.contentOffset.y;
-                setGestureRecognize(contentOffsetY === 0);
-              }}
+    <SafeAreaView style={{ flex: 1 }}>
+      <StatusBar
+        translucent
+        backgroundColor="white"
+        barStyle="dark-content"
+      />
+
+      <GestureHandlerRootView style={styles.container}>
+        {/* Header Section */}
+        <View
+          style={[
+            styles.SliderMainComp,
+          ]}
+        >
+          <View
+            style={[styles.detailsNavBarCon, componentStyles.horizontalPadding,]}
+          >
+            <View
+              style={styles.backBtnCon}
             >
-              <View style={styles.contentContainer}>
-                <Text style={styles.text}>
-                  Histor, Purpose and Usage
-                  Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out print, graphic or web designs...
-                  Histor, Purpose and Usage
-                  Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out print, graphic or web designs...
-                  Histor, Purpose and Usage
-                  Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out print, graphic or web designs...
-                  Histor, Purpose and Usage
-                  Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out print, graphic or web designs...
-                  Histor, Purpose and Usage
-                  Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out print, graphic or web designs...
-                  Histor, Purpose and Usage
-                  Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out print, graphic or web designs...
-                  Histor, Purpose and Usage
-                  Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out print, graphic or web designs...
-                  Histor, Purpose and Usage
-                  Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out print, graphic or web designs...
-                  Histor, Purpose and Usage
-                  Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out print, graphic or web designs...
-                  Histor, Purpose and Usage
-                  Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out print, graphic or web designs...
-                  History, Purpose, and Usage
-                  Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out print, graphic or web designs...
-                  History, Purpose, and Usage
-                  Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out print, graphic or web designs...
-                  History, Purpose, and Usage
-                  Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out print, graphic or web designs...
-                  History, Purpose, and Usage
-                  Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out print, graphic or web designs...
-                  History, Purpose, and Usage History, Purpose, and Usage
-                  Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out print, graphic or web designs...
-                  History, Purpose, and Usage
-                  Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out print, graphic or web designs...
-                  History, Purpose, and Usage
-                </Text>
-              </View>
-              <Text style={styles.headerText}>Animated Header</Text>
-            </ScrollView>
-          </Animated.View>
-        </GestureDetector>
-      </View>
-    </GestureHandlerRootView>
+              <Icon
+                type="Entypo"
+                name="chevron-left"
+                size={SizeConfig.width * 6}
+                color="#1E3354"
+                style={{ width: SizeConfig.width * 6 }}
+              />
+            </View>
+            <View
+              style={styles.heartBtnCon}
+            >
+              <Icon
+                type="AntDesign"
+                name="heart"
+                size={SizeConfig.width * 6}
+                color="#FF6E6E"
+                style={{ width: SizeConfig.width * 6 }}
+              />
+            </View>
+          </View>
+          <NormalProductImgSlider />
+
+          <BtnCust
+
+            buttonContent='Add To Cart'
+            prefixIcon={
+              <Icon
+                type='FontAwesome5'
+                name='shopping-bag'
+                color={'white'}
+                size={SizeConfig.width * 6}
+                style={{ width: SizeConfig.width * 6 }}
+              />
+            }
+            buttonStyle={{
+              backgroundColor: '#343434',
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'center',
+              height: SizeConfig.height * 10,
+              zIndex: 10,
+              width: '100%',
+              borderTopRightRadius: SizeConfig.width * 7,
+              borderTopLeftRadius: SizeConfig.width * 7
+            }}
+            buttonTextStyle={{
+              fontSize: SizeConfig.fontSize * 4,
+              color: 'white',
+              fontFamily: 'RedHatDisplay-Bold',
+              // backgroundColor : 'green'
+            }}
+
+          />
+
+
+        </View>
+
+        <BottomSheet
+          ref={sheetRef}
+          index={0}
+          snapPoints={["52%", "90%"]}
+          onChange={handleSheetChange}
+          handleIndicatorStyle={{ display: 'none' }}
+          enableDynamicSizing={false}
+          backgroundStyle={{
+            borderTopRightRadius: SizeConfig.width * 5,
+            borderTopLeftRadius: SizeConfig.width * 5,
+            elevation: 10,
+            backgroundColor: 'white',
+          }}
+        >
+          <BottomSheetScrollView
+            nestedScrollEnabled
+            contentContainerStyle={styles.contentContainer}
+          >
+            <Details />
+          </BottomSheetScrollView>
+        </BottomSheet>
+      </GestureHandlerRootView>
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
-  header: {
-    backgroundColor: 'tomato',
-    justifyContent: 'center',
-    alignItems: 'center',
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
+  container: {
+    flex: 1,
   },
-  headerText: {
-    color: 'white',
-    fontSize: 18,
-    fontWeight: 'bold',
+  SliderMainComp: {
+    position: "relative",
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: 'white',
+    flex: 1
   },
   contentContainer: {
-    padding: 16,
-
+    backgroundColor: "white",
   },
-  text: {
-    fontSize: 16,
-    lineHeight: 24,
-    marginBottom: 16,
+  itemContainer: {
+    padding: 6,
+    margin: 6,
+    backgroundColor: "#eee",
   },
+  detailsNavBarCon: {
+    width: "100%",
+    height: SizeConfig.height * 10,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    position: 'absolute',
+    zIndex: 1,
+    top: 0
+  },
+  backBtnCon: {
+    elevation: 2,
+    backgroundColor: "white",
+    width: SizeConfig.width * 10,
+    borderRadius: SizeConfig.width * 100,
+    alignItems: "center",
+    justifyContent: "center",
+    height: SizeConfig.width * 10,
+  },
+  heartBtnCon: {
+    elevation: 2,
+    backgroundColor: "white",
+    width: SizeConfig.width * 10,
+    borderRadius: SizeConfig.width * 100,
+    alignItems: "center",
+    justifyContent: "center",
+    height: SizeConfig.width * 10,
+  }
 });
 
+export default DetailsScreen;
 

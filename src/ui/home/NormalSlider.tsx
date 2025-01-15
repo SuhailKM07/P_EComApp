@@ -20,8 +20,8 @@ function NormalSlider() {
             <Carousel
                 windowSize={3}
                 panGestureHandlerProps={{
-                    activeOffsetX: [-10, 10], // Enable horizontal panning
-                    failOffsetY: [-5, 5],    // Limit vertical movement to fail the gesture
+                    activeOffsetX: [-10, 10], 
+                    failOffsetY: [-5, 5],     
                 }}
                 loop={true}
                 width={SizeConfig.width * 100}

@@ -6,6 +6,7 @@ import DetailsScreen from './src/ui/details/DetailsScreen';
 
 
 
+
 export default function App() {
   return (
     // <StackNav />
@@ -15,3 +16,5 @@ export default function App() {
     // </NavigationContainer>
   )
 }
+
+
