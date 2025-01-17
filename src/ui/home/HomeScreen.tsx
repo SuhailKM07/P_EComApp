@@ -1,127 +1,105 @@
-import { Image, ImageBackground, Pressable, ScrollView, StatusBar, StyleSheet, Text, View } from 'react-native'
-import React, { useEffect, useState } from 'react'
+import { FlatList, ScrollView, StatusBar, View } from 'react-native'
+import React from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { SizeConfig } from '../../component/SizeConfig'
 import { componentStyles } from './Styles'
-import { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated'
-import SubMenuScreen from './SubMenuScreen'
-import NormalSlider from './NormalSlider'
-import FeatureProducts from './FeatureProducts'
-import Recommended from './Recommended'
-import TopCollection from './TopCollection'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
+import {
+    CategorySectionButtons,
+    FeatureProdutsCards,
+    HadderSection,
+    HomeCollectionBanner,
+    ImageCarousel,
+    PromotionBanner,
+    RecommendedSectionCards,
+    TextHeaderComp,
+    ThirdBannerSubCards
+} from './Components/Healper'
+import {
+    CarouselImages,
+    productData,
+    RecommendedProductDataArray,
+    subMenuData,
+    ThirdSubBannerData
+} from './Components/Data'
+import { NativeStackScreenProps } from '@react-navigation/native-stack'
+import { BottomTabNavigationTypeChecking } from '../../routs/NavigationTypes'
 
-export default function HomeScreen() {
-    const [subMenuIndex, setSubMenuIndex] = useState<number>(0);
-    const subMenuData = [
-        { img: require('../../assets/images/Home/women.png'), lable: 'Women' },
-        { img: require('../../assets/images/Home/men.png'), lable: 'Men' },
-        { img: require('../../assets/images/Home/accessories.png'), lable: 'Accessories' },
-        { img: require('../../assets/images/Home/beauty.png'), lable: 'Beauty' },
-    ]
+type HomeScreenType = NativeStackScreenProps<BottomTabNavigationTypeChecking, 'Home'>;
 
+const HomeScreen: React.FC<HomeScreenType> = ({ navigation, route }) => {
     return (
-        <SafeAreaView style={[styles.superComp]}>
+        <SafeAreaView style={[componentStyles.superComp]}>
             <StatusBar
                 translucent
                 backgroundColor="rgba(255, 255, 255, 0)"
                 barStyle={'dark-content'}
             />
-
             <GestureHandlerRootView >
                 <ScrollView
                     showsVerticalScrollIndicator={false}
                     style={{ flex: 1 }}
                     stickyHeaderIndices={[0]}
                 >
-
-
-                    <View>
-
-
-                        <View style={[styles.headderComp, componentStyles.paddingHorizontalStyle]}>
-                            <Image
-                                source={require('../../assets/images/Home/menu.png')}
-                                style={styles.menuImgStyle}
+                    <HadderSection />
+                    <CategorySectionButtons subMenuData={subMenuData} />
+                    <ImageCarousel CarouselImages={CarouselImages} />
+                    <FeatureProdutsCards navigation={navigation} productData={productData} />
+                    <PromotionBanner />
+                    <RecommendedSectionCards RecommendedProductDataArray={RecommendedProductDataArray} />
+                    <View style={[componentStyles.paddingHorizontalStyle, componentStyles.topCollectionComp]}>
+                        <TextHeaderComp
+                            MainCompStyle={componentStyles.textComp}
+                            textOneContent='Top Collection'
+                        />
+                        <View style={{ gap: SizeConfig.height * 2 }}>
+                            <HomeCollectionBanner
+                                firstContent={'I Sale Up to 40%'}
+                                sectionContent={"FOR SLIM \n & BEAUTY"}
+                                ImageUrl={require('../../assets/images/Home/topcoll1.png')}
+                                sectionContentStyle={componentStyles.bannerOneTextTwo}
                             />
-                            <Text style={styles.brandName}>
-                                GemStore
-                            </Text>
-                            <Image
-                                source={require('../../assets/images/Home/notfication.png')}
-                                style={styles.notificationIcon}
+                            <HomeCollectionBanner
+                                firstContent={'I Summer Collection 2021'}
+                                sectionContent={" Most sexy \n & fabulous \n design"}
+                                BannerCompStyle={{ paddingVertical: SizeConfig.height * 2 }}
+                                ImageUrl={require('../../assets/images/Home/topcoll2.png')}
+                                sectionContentStyle={componentStyles.bannerSecondCompTextTwo}
                             />
+                            <View style={componentStyles.thirdBannerComp}>
+
+                                <FlatList
+                                    data={ThirdSubBannerData}
+                                    showsHorizontalScrollIndicator={false}
+                                    keyExtractor={item => item.id}
+                                    horizontal
+                                    contentContainerStyle={{ gap: SizeConfig.width * 5 }}
+                                    renderItem={(({ item, index }) => {
+                                        console.log(index)
+                                        return (
+                                            <ThirdBannerSubCards
+                                                MainCompStyle={index % 2 == 0 ? componentStyles.thirdSubOneComp : componentStyles.ThirdBannerMainComp}
+                                                PreFixImg={index % 2 == 0 ? item.img : undefined}
+                                                PreFixImgStyle={index % 2 == 0 ? componentStyles.thirdSubImg : undefined}
+                                                SurFixImg={!(index % 2 == 0) ? item.img : undefined}
+                                                SurFixImgStyle={!(index % 2 == 0) ? componentStyles.thirdSubImg : undefined}
+                                                TextCompStyle={index % 2 == 0 ? componentStyles.thirdSubComp : componentStyles.ThirdBannerSubComp}
+                                                FirstTextStyle={componentStyles.thirdSubTextOne}
+                                                FirstText={item.firstText}
+                                                SecondTextStyle={componentStyles.thirdSubTextTwo}
+                                                SecondText={item.SecondText}
+                                                id={item.id}
+                                            />
+                                        )
+                                    })}
+                                />
+                            </View>
                         </View>
                     </View>
-
-                    <View style={[styles.subMenuStyle, componentStyles.paddingHorizontalStyle]} >
-                        {
-                            subMenuData.map((data, index) => (
-                                <SubMenuScreen
-                                    key={index}
-                                    data={data}
-                                    index={index}
-                                    subMenuIndex={subMenuIndex}
-                                    setSubMenuIndex={setSubMenuIndex}
-                                />
-                            ))
-                        }
-                    </View>
-                    <NormalSlider />
-                    <FeatureProducts />
-                    <Image
-                        source={require('../../assets/images/Home/midBanner.png')}
-                        style={{
-                            width: '100%',
-                            height: SizeConfig.height * 28,
-                            resizeMode: 'center',
-                        }}
-                    />
-                    <Recommended />
-                    <TopCollection />
-
                 </ScrollView>
             </GestureHandlerRootView>
         </SafeAreaView>
     )
 }
-const styles = StyleSheet.create({
-    superComp: {
-        flex: 1,
-        backgroundColor: 'white',
-        paddingTop: SizeConfig.height * 2,
-    },
-    headderComp: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        height: SizeConfig.height * 7,
-        width: '100%',
-        alignItems: 'center',
-        backgroundColor: 'white'
-    },
-    menuImgStyle: {
-        resizeMode: 'cover',
-        width: SizeConfig.width * 5,
-        height: SizeConfig.width * 5,
-    },
-    brandName: {
-        textAlign: 'center',
-        fontSize: SizeConfig.fontSize * 5,
-        color: 'black',
-        fontFamily: 'RedHatDisplay-Bold',
-        width: SizeConfig.width * 35
-    },
-    notificationIcon: {
-        resizeMode: 'cover',
-        width: SizeConfig.width * 7,
-        height: SizeConfig.width * 7,
-    },
-    subMenuStyle: {
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        flexDirection: 'row',
-        height: SizeConfig.height * 13,
-        // backgroundColor : 'red'
 
-    }
-})
+export default HomeScreen

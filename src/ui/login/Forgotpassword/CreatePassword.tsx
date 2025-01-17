@@ -52,7 +52,7 @@ const CreatePassword: React.FC<CreatePasswordProps> = () => {
                 backgroundColor="rgba(255, 255, 255, 0)"
                 barStyle={'dark-content'}
             />
-            <ScrollView style={{ flex: 1 }}>
+            <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false} >
                 <View style={styles.innerContainer}>
                     {/* Title Section */}
                     <View style={styles.titleContainer}>

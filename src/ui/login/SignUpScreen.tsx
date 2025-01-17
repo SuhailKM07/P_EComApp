@@ -32,7 +32,7 @@ const SignUpScreen: React.FC<WelcomeScreenProps> = ({ navigation }) => {
         barStyle={'dark-content'}
       />
 
-      <ScrollView style={{ flex: 1 }}>
+      <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false} >
         <View style={styles.textContainer} >
           <Text style={styles.textContainerText}>
             Create{"\n"}

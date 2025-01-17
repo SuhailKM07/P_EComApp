@@ -1,4 +1,4 @@
-import { Text, TouchableOpacity, View, ViewStyle, TextStyle } from 'react-native';
+import { Text, TouchableOpacity, View, ViewStyle, TextStyle, Pressable } from 'react-native';
 import React, { ReactNode } from 'react';
 
 interface ButtonCompProps {
@@ -19,10 +19,10 @@ export default function BtnCust({
   onPushFun,
 }: ButtonCompProps) {
   return (
-    <TouchableOpacity style={buttonStyle} onPress={onPushFun}>
+    <Pressable style={buttonStyle} onPress={onPushFun}>
       {prefixIcon && <View style={{ marginRight: 8 }}>{prefixIcon}</View>}
       <Text style={buttonTextStyle}>{buttonContent}</Text>
       {surfixIcon && <View style={{ marginLeft: 8 }}>{surfixIcon}</View>}
-    </TouchableOpacity>
+    </Pressable>
   );
 }

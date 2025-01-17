@@ -5,6 +5,7 @@ import { Text } from "react-native-basic-elements";
 import React from 'react';
 import HomeScreen from "../ui/home/HomeScreen";
 import { SizeConfig } from "../component/SizeConfig";
+import { BottomTabNavigationTypeChecking } from "./NavigationTypes";
 
 
 function MyTabBar({ state, descriptors, navigation }: {
@@ -94,7 +95,7 @@ let customer = () => {
     )
 }
 
-const Tab = createBottomTabNavigator();
+const Tab = createBottomTabNavigator<BottomTabNavigationTypeChecking>();
 
 const BottomTabNavBar = () => {
     return (

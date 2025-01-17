@@ -69,6 +69,7 @@ const VerificationCodeScreen: React.FC<VerificationCodeScreenProps> = ({ navigat
         barStyle={'dark-content'}
       />
       <ScrollView
+        showsVerticalScrollIndicator={false}
         style={{
           flex: 1
         }}>

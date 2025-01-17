@@ -11,8 +11,8 @@ import EnterEmailScreen from '../ui/login/Forgotpassword/EnterEmailScreen';
 import VerificationCodeScreen from '../ui/login/Forgotpassword/VerificationCodeScreen';
 import CreatePassword from '../ui/login/Forgotpassword/CreatePassword';
 import { View } from 'react-native';
-import { BottomTabBar } from '@react-navigation/bottom-tabs';
 import BottomTabNavBar from './BottomTabNavBar';
+import DetailsScreen from '../ui/details/DetailsScreen';
 
 
 const Stack = createNativeStackNavigator<NavigationTypeChecking>();
@@ -63,6 +63,11 @@ export default function StackNav() {
                     <Stack.Screen
                         name={"BottomTabBar"}
                         component={BottomTabNavBar}
+                        options={{ headerShown: false }}
+                    />
+                    <Stack.Screen
+                        name={"DetailsScreen"}
+                        component={DetailsScreen}
                         options={{ headerShown: false }}
                     />
                 </Stack.Navigator>

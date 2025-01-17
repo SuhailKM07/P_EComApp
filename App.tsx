@@ -9,11 +9,13 @@ import DetailsScreen from './src/ui/details/DetailsScreen';
 
 export default function App() {
   return (
-    // <StackNav />
-    <DetailsScreen />
+    <StackNav />
+    // <DetailsScreen />
     // <NavigationContainer>
     //   <BottomTabNavBar />
     // </NavigationContainer>
+
+
   )
 }
 

@@ -29,66 +29,67 @@ const EnterEmailScreen: React.FC<EnterEmailScreen> = ({ navigation }) => {
                 barStyle={'dark-content'}
             />
             <ScrollView
+                showsVerticalScrollIndicator={false}
                 style={{
                     flex: 1
                 }}
             >
 
-                    <View style={styles.subContainer}>
-            
-
-                        <View style={styles.headerContainer}>
-                            <Text style={{
-                                fontFamily: 'RedHatDisplay-Bold',
-                                fontSize: SizeConfig.width * 7
-                            }}>
-                                Forgot password?
-                            </Text>
-                            <Text style={{
-                                fontFamily: 'RedHatDisplay-Light',
-                                fontSize: SizeConfig.width * 4
-                            }}>
-                                Enter email associated with your account and we’ll send and email with intructions to reset your password
-                            </Text>
-                        </View>
-
-                        <Inputcust
-                            placeholder='enter your email here'
-                            placeholderColor='black'
-                            onChangeFun={setRePassword}
-                            value={rePassword}
-                            keyboardType='email-address'
-                            prefixIcon={
-                                <Icon
-                                    name="mail"
-                                    type="Feather"
-                                    size={SizeConfig.width * 4}
-                                    color={'#d6d6d6'}
-                                    style={{
-                                        width: SizeConfig.width * 5,
-                                    }}
-                                />
-                            }
-                            containerStyle={styles.inpContainer}
-                            inputStyle={styles.inpText}
-                        />
+                <View style={styles.subContainer}>
 
 
+                    <View style={styles.headerContainer}>
+                        <Text style={{
+                            fontFamily: 'RedHatDisplay-Bold',
+                            fontSize: SizeConfig.width * 7
+                        }}>
+                            Forgot password?
+                        </Text>
+                        <Text style={{
+                            fontFamily: 'RedHatDisplay-Light',
+                            fontSize: SizeConfig.width * 4
+                        }}>
+                            Enter email associated with your account and we’ll send and email with intructions to reset your password
+                        </Text>
                     </View>
 
-                    <View
-                        style={styles.verificationBtn}
+                    <Inputcust
+                        placeholder='enter your email here'
+                        placeholderColor='black'
+                        onChangeFun={setRePassword}
+                        value={rePassword}
+                        keyboardType='email-address'
+                        prefixIcon={
+                            <Icon
+                                name="mail"
+                                type="Feather"
+                                size={SizeConfig.width * 4}
+                                color={'#d6d6d6'}
+                                style={{
+                                    width: SizeConfig.width * 5,
+                                }}
+                            />
+                        }
+                        containerStyle={styles.inpContainer}
+                        inputStyle={styles.inpText}
+                    />
 
-                    >
-                        <BtnCust
-                            buttonContent='Get verification code'
-                            buttonStyle={[styles.btnContainer, { backgroundColor: showBtn ? '#000000' : '#b9b9b9', }]}
-                            buttonTextStyle={styles.btnTextContainer}
-                            onPushFun={() => {
-                                showBtn && navigation.navigate('VerificationCodeScreen')
-                            }}
-                        />
-                    </View>
+
+                </View>
+
+                <View
+                    style={styles.verificationBtn}
+
+                >
+                    <BtnCust
+                        buttonContent='Get verification code'
+                        buttonStyle={[styles.btnContainer, { backgroundColor: showBtn ? '#000000' : '#b9b9b9', }]}
+                        buttonTextStyle={styles.btnTextContainer}
+                        onPushFun={() => {
+                            showBtn && navigation.navigate('VerificationCodeScreen')
+                        }}
+                    />
+                </View>
             </ScrollView>
         </SafeAreaView>
     )
