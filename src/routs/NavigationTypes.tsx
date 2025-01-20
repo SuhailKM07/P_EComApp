@@ -18,4 +18,10 @@ export interface BottomTabNavigationTypeChecking extends ParamListBase {
     Search: undefined;
     Cart: undefined;
     Profile: undefined;
+    SliderDrawer: undefined;
+}
+
+export interface DrawerNavigationTypeChecking extends ParamListBase {
+    StackNav: undefined
+    HomeScreen: undefined
 }

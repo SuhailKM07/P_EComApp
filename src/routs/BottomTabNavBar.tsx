@@ -100,7 +100,7 @@ const Tab = createBottomTabNavigator<BottomTabNavigationTypeChecking>();
 const BottomTabNavBar = () => {
     return (
         <Tab.Navigator tabBar={(props) => <MyTabBar {...props} />}>
-            <Tab.Screen name="Home" options={{ headerShown: false }} component={HomeScreen} />
+            <Tab.Screen name="Home" options={{ headerShown: false }} component={HomeScreen}  />
             <Tab.Screen name="Search" options={{ headerShown: false }} component={Temp} />
             <Tab.Screen name="Cart" options={{ headerShown: false }} component={sales} />
             <Tab.Screen name="Profile" options={{ headerShown: false }} component={customer} />

@@ -1,12 +1,14 @@
 import * as React from 'react'
 import { useState } from "react";
-import { CarouselImagesType, productDataType, RecommendedProductDataType, subMenuDataType, subMenuType } from "./Data";
-import { Animated, Image, ImageProps, Pressable, Text, TextStyle, View } from "react-native";
+import { CarouselImagesType, productDataType, RecommendedProductDataType, subMenuDataType } from "./Data";
+import { Animated, Image, ImageProps, Pressable, Text, TextStyle, View, FlatList } from "react-native";
 import { componentStyles } from "../Styles";
 import { ViewStyle } from "react-native";
 import { SizeConfig } from "../../../component/SizeConfig";
-import { FlatList } from "react-native-gesture-handler";
 import Carousel from "react-native-reanimated-carousel";
+import { DrawerNavigationTypeChecking } from '../../../routs/NavigationTypes';
+import { DrawerNavigationProp } from '@react-navigation/drawer';
+import { useNavigation } from '@react-navigation/native';
 
 export const TextHeaderComp = ({ MainCompStyle, textOneContent }: {
     MainCompStyle: ViewStyle | ViewStyle[];
@@ -19,18 +21,27 @@ export const TextHeaderComp = ({ MainCompStyle, textOneContent }: {
 )
 
 export const HadderSection = () => {
+    let navigation = useNavigation<DrawerNavigationProp<DrawerNavigationTypeChecking>>();
     return (
         <View style={[componentStyles.headderComp, componentStyles.paddingHorizontalStyle]}>
-            <Image
-                source={require('../../../assets/images/Home/menu.png')}
-                style={componentStyles.menuImgStyle}
-            />
+            <Pressable
+                hitSlop={40}
+                onPress={() => {
+                    navigation.openDrawer();
+                }}
+            >
+                <Image
+                    source={require('../../../assets/images/Home/menu.png')}
+                    style={componentStyles.menuImgStyle}
+
+                />
+            </Pressable>
             <Text style={componentStyles.brandName}>
                 GemStore
             </Text>
             <Image
                 source={require('../../../assets/images/Home/notfication.png')}
-                style={componentStyles.notificationIcon} 
+                style={componentStyles.notificationIcon}
             />
         </View>
     )
