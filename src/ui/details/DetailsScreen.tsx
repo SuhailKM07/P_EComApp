@@ -12,11 +12,10 @@ import {
   ReviewContentComp,
   ReviewGraphGroth,
   SimilarproductCards,
-  StarsSection,
   toggleAnimation,
   toggleDescription,
   toggleSimilarProduct
-} from "./Components/Healper";
+} from "./Components/Helper";
 import DetailsDescBottomSheet from "./Components/DetailsDescBottomSheet";
 import {
   Color,
@@ -32,6 +31,7 @@ import BtnCust from "../../component/BtnCust";
 import { FlatList, GestureHandlerRootView, PanGestureHandler } from "react-native-gesture-handler";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { NavigationTypeChecking } from "../../routs/NavigationTypes";
+import { RatingStars } from "../../component/RatingStars";
 
 type DetailsScreenProps = NativeStackScreenProps<NavigationTypeChecking, 'DetailsScreen'>
 
@@ -130,7 +130,9 @@ const DetailsScreen: React.FC<DetailsScreenProps> = ({ navigation, route }) => {
           }
           buttonStyle={componentStyles.addToCartBtnComp}
           buttonTextStyle={componentStyles.addToCartBtn}
-
+          onPushFun={() => {
+            navigation.navigate('YourCart')
+          }}
         />
 
         <DetailsDescBottomSheet setOpenAllSection={setOpenAllSection} sheetRef={sheetRef} >
@@ -146,7 +148,11 @@ const DetailsScreen: React.FC<DetailsScreenProps> = ({ navigation, route }) => {
               </View>
               <View style={{ flexDirection: 'row' }} >
                 <View style={componentStyles.rattingSubComp}>
-                  <StarsSection />
+                  <RatingStars
+                    numberOfStars={5}
+                    starSize={SizeConfig.width * 4}
+                    starColor={"#508A7B"}
+                  />
                 </View>
                 <Text style={componentStyles.rattingCount}>
                   (83)
@@ -262,7 +268,11 @@ const DetailsScreen: React.FC<DetailsScreenProps> = ({ navigation, route }) => {
                   }} >
                     {
                       <View style={componentStyles.starsSubComp}>
-                        <StarsSection />
+                        <RatingStars
+                          numberOfStars={5}
+                          starSize={SizeConfig.width * 4}
+                          starColor={"#508A7B"}
+                        />
                       </View>
                     }
                     <Text style={componentStyles.totalNumberOfRatings}>
@@ -280,7 +290,9 @@ const DetailsScreen: React.FC<DetailsScreenProps> = ({ navigation, route }) => {
                     {
                       ratingsGrapData.map((data, index) => {
                         return (
-                          <ReviewGraphGroth data={data} index={index + 'C'} />
+                          <View key={index}>
+                            <ReviewGraphGroth data={data} index={index + 'C'} />
+                          </View>
                         )
                       })
                     }
@@ -309,7 +321,9 @@ const DetailsScreen: React.FC<DetailsScreenProps> = ({ navigation, route }) => {
 
                 {
                   reviewContentData.map((data, index) => (
-                    <ReviewContentComp data={data} index={index + 'D'} />
+                   <View key={index}>
+                     <ReviewContentComp data={data} index={index + 'D'} />
+                   </View>
                   ))
                 }
 

@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { Pressable, StyleSheet } from "react-native"
-import { componentStyles } from "../ui/login/Styles"
 import { Icon } from "react-native-basic-elements"
 import { SizeConfig } from "./SizeConfig"
 

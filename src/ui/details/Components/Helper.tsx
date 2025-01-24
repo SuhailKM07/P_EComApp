@@ -3,6 +3,8 @@ import * as React from 'react'
 import { Icon } from "react-native-basic-elements";
 import { componentStyles } from "../styles";
 import { SizeConfig } from "../../../component/SizeConfig";
+import { PropsOfIcon } from "react-native-basic-elements/lib/Components/Icon";
+import { RatingStars } from "../../../component/RatingStars";
 
 
 export const HeadderSection = ({ showDescription, toggleDescription, content, containerStyle }: {
@@ -29,20 +31,6 @@ export const HeadderSection = ({ showDescription, toggleDescription, content, co
     </Pressable>
 )
 
-
-export const StarsSection = () => (
-    Array(5).fill(0).map((_, index) => (
-        <Icon
-            key={index+'F'}
-            name="star"
-            type="FontAwesome"
-            size={SizeConfig.width * 4}
-            color={"#508A7B"}
-        />
-    ))
-)
-
-
 export const ReviewContentComp = ({
     data, index
 }: {
@@ -68,7 +56,11 @@ export const ReviewContentComp = ({
                     {
                         <View style={componentStyles.starsComp}>
                             {
-                                <StarsSection />
+                                <RatingStars
+                                    numberOfStars={5}
+                                    starSize={SizeConfig.width * 4}
+                                    starColor={"#508A7B"}
+                                />
                             }
                         </View>
                     }
@@ -89,8 +81,8 @@ export const ReviewGraphGroth = ({ data, index }: {
         stars: string;
         ratio: number;
         percentage: string;
-    }, 
-    index : string
+    },
+    index: string
 }) => (
     <View key={index} style={componentStyles.grapSubComp}>
         <Text style={componentStyles.grapTotalStars}>{data.stars}</Text>

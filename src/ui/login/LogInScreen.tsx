@@ -40,7 +40,6 @@ const LogInScreen: React.FC<LogInScreenProps> = ({ navigation }) => {
                         keyboardType="email-address"
                         value={email}
                     />
-
                     <View
                         style={styles.passwordContainer}
                     >

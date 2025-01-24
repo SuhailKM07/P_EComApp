@@ -1,4 +1,17 @@
-import { ParamListBase } from "@react-navigation/native";
+import { NavigationProp, ParamListBase } from "@react-navigation/native";
+import { ImageProps } from "react-native";
+
+
+type OrderItem = {
+    id: string;
+    img: ImageProps;
+    productName: string;
+    price: string;
+    size: string;
+    color: string;
+    count: number
+    active: boolean
+};
 
 export interface NavigationTypeChecking extends ParamListBase {
     WelcomeScreen: undefined
@@ -11,6 +24,13 @@ export interface NavigationTypeChecking extends ParamListBase {
     BottomTabBar: undefined
     HomeScreen: undefined
     DetailsScreen: undefined
+    YourCart: undefined
+    OrderInfo: {
+        data: OrderItem[];
+        totalPrice: number;
+    };
+    RateProductScreen: undefined;
+    TrackingOrder: undefined;
 }
 
 export interface BottomTabNavigationTypeChecking extends ParamListBase {

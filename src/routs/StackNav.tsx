@@ -14,13 +14,17 @@ import { View } from 'react-native';
 import BottomTabNavBar from './BottomTabNavBar';
 import DetailsScreen from '../ui/details/DetailsScreen';
 import SliderDrawer from '../routs/SliderDrawerComp/SliderDrawer';
+import YourCart from '../ui/Order/AddToCart/YourCart';
+import OrderInfo from '../ui/Order/OrderInfo/OrderInfo';
+import {RateProductScreen} from '../ui/Order/RateProduct/RateProductScreen';
+import {TrackingOrder} from '../ui/Order/TrackOrder/TrackingOrder';
 const Stack = createNativeStackNavigator<NavigationTypeChecking>();
 export default function StackNav() {
     return (
         <View style={{
             flex: 1
         }}>
-            {/* <NavigationContainer> */}
+
             <Stack.Navigator initialRouteName="WelcomeScreen" >
                 <Stack.Screen
                     name="WelcomeScreen"
@@ -72,8 +76,34 @@ export default function StackNav() {
                     component={SliderDrawer}
                     options={{ headerShown: false }}
                 />
+                <Stack.Screen
+                    name={"YourCart"}
+                    component={YourCart}
+                    options={{ headerShown: false }}
+                />
+                <Stack.Screen
+                    name={'OrderInfo'}
+                    component={OrderInfo}
+                    options={{
+                        headerShown: false
+                    }}
+                />
+                <Stack.Screen
+                    name={'RateProductScreen'}
+                    component={RateProductScreen}
+                    options={{
+                        headerShown: false
+                    }}
+                />
+                <Stack.Screen
+                    name={'TrackingOrder'}
+                    component={TrackingOrder}
+                    options={{
+                        headerShown: false
+                    }}
+                />
             </Stack.Navigator>
-            {/* </NavigationContainer> */}
+
         </View>
 
     )

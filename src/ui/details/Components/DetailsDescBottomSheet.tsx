@@ -28,7 +28,7 @@ export default function DetailsDescBottomSheet({ children, setOpenAllSection, sh
                 backgroundStyle={{
                     borderTopRightRadius: SizeConfig.width * 5,
                     borderTopLeftRadius: SizeConfig.width * 5,
-                    elevation: 10,
+                    // elevation: 10,
                     backgroundColor: 'white',
                 }}
             >
