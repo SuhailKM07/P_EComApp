@@ -6,6 +6,7 @@ import SliderDrawerCustmComp from './Components/SliderDrawerCustmComp';
 import { DrawerNavigationTypeChecking } from '../NavigationTypes';
 import { enableScreens } from 'react-native-screens'
 import { SizeConfig } from '../../component/SizeConfig';
+import Collections from '../../ui/collection/Collections';
 
 const Drawer = createDrawerNavigator<DrawerNavigationTypeChecking>();
 
@@ -29,6 +30,7 @@ const SliderDrawer = () => {
 
             >
                 <Drawer.Screen name="StackNav" component={StackNav} />
+                <Drawer.Screen name="Collections" component={Collections} />
             </Drawer.Navigator>
         </NavigationContainer>
     );

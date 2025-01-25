@@ -3,6 +3,7 @@ import { SizeConfig } from "../../../component/SizeConfig";
 import * as React from 'react'
 import { ImageProps } from "react-native";
 import { drawerCompStyle } from "./styles";
+import { NavigationProp } from "@react-navigation/native";
 
 
 export const HeadderSection = () => (
@@ -24,7 +25,8 @@ export const DrawerLinksButtons = ({
     index,
     mainBtnIndex,
     setMainBtnIndex,
-    setDrawerOtherBtnIndex
+    setDrawerOtherBtnIndex,
+    navigation
 }: {
     imgURI: ImageProps,
     content: string,
@@ -32,29 +34,41 @@ export const DrawerLinksButtons = ({
     mainBtnIndex: number,
     setMainBtnIndex: (params: number) => void,
     setDrawerOtherBtnIndex: (params: number) => void,
-}) => (
-    <>
-        <Pressable style={[drawerCompStyle.MainNavBtn, { backgroundColor: mainBtnIndex == index ? '#F4F5F6' : 'white' }]}
-            onPress={() => {
-                setMainBtnIndex(index)
-                setDrawerOtherBtnIndex(-1)
-            }}
+    navigation?: any
+}) => {
 
-        >
-            <Image
-                source={imgURI}
-                style={[drawerCompStyle.MainNavBtnImg, {
-                    tintColor: mainBtnIndex == index ? 'black' : '#777E90'
-                }]}
-            />
-            <Text style={[drawerCompStyle.MainNavBtnText, { color: mainBtnIndex == index ? 'black' : '#777E90' }]} >
-                {content}
-            </Text>
-        </Pressable>
+    const NavigatorFunction = () => {
+        navigation.navigate('Collections')
+    }
+
+    return (
+        <>
+            <Pressable style={[drawerCompStyle.MainNavBtn, { backgroundColor: mainBtnIndex == index ? '#F4F5F6' : 'white' }]}
+                onPress={() => {
+                    setMainBtnIndex(index)
+                    setDrawerOtherBtnIndex(-1)
+
+                    if (content == 'Discover') {
+                        navigation.navigate('Collections')
+                    }
+                }}
+
+            >
+                <Image
+                    source={imgURI}
+                    style={[drawerCompStyle.MainNavBtnImg, {
+                        tintColor: mainBtnIndex == index ? 'black' : '#777E90'
+                    }]}
+                />
+                <Text style={[drawerCompStyle.MainNavBtnText, { color: mainBtnIndex == index ? 'black' : '#777E90' }]} >
+                    {content}
+                </Text>
+            </Pressable>
 
 
-    </>
-)
+        </>
+    )
+}
 
 export const DrawerOtherSectionNavBtnComp = ({
     imgURI,
@@ -62,7 +76,7 @@ export const DrawerOtherSectionNavBtnComp = ({
     index,
     setDrawerOtherBtnIndex,
     drawerOtherBtnIndex,
-    setMainBtnIndex
+    setMainBtnIndex,
 }: {
     imgURI: ImageProps,
     content: string,
@@ -70,6 +84,7 @@ export const DrawerOtherSectionNavBtnComp = ({
     drawerOtherBtnIndex: number,
     setDrawerOtherBtnIndex: (params: number) => void,
     setMainBtnIndex: (params: number) => void
+
 }) => (
     <>
         <Pressable style={[drawerCompStyle.MainNavBtn, {

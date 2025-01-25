@@ -18,6 +18,7 @@ import YourCart from '../ui/Order/AddToCart/YourCart';
 import OrderInfo from '../ui/Order/OrderInfo/OrderInfo';
 import {RateProductScreen} from '../ui/Order/RateProduct/RateProductScreen';
 import {TrackingOrder} from '../ui/Order/TrackOrder/TrackingOrder';
+import Collections from '../ui/collection/Collections';
 const Stack = createNativeStackNavigator<NavigationTypeChecking>();
 export default function StackNav() {
     return (
@@ -98,6 +99,13 @@ export default function StackNav() {
                 <Stack.Screen
                     name={'TrackingOrder'}
                     component={TrackingOrder}
+                    options={{
+                        headerShown: false
+                    }}
+                />
+                <Stack.Screen
+                    name={'Collections'}
+                    component={Collections}
                     options={{
                         headerShown: false
                     }}

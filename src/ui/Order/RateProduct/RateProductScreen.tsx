@@ -84,8 +84,8 @@ export const RateProductScreen: React.FC<RateProductScreenProp> = ({ navigation,
                     },
                     container: {
                         backgroundColor: 'white',
-                        elevation : 2,
-                        borderRadius : SizeConfig.width * 3
+                        elevation: 2,
+                        borderRadius: SizeConfig.width * 3
                     }
                 }}
                 customModalProps={{

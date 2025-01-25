@@ -31,6 +31,7 @@ export interface NavigationTypeChecking extends ParamListBase {
     };
     RateProductScreen: undefined;
     TrackingOrder: undefined;
+    Collections: undefined;
 }
 
 export interface BottomTabNavigationTypeChecking extends ParamListBase {
@@ -44,4 +45,5 @@ export interface BottomTabNavigationTypeChecking extends ParamListBase {
 export interface DrawerNavigationTypeChecking extends ParamListBase {
     StackNav: undefined
     HomeScreen: undefined
+    Collections: undefined
 }

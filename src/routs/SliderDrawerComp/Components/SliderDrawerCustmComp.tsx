@@ -2,7 +2,7 @@ import { FlatList, StyleSheet, Text, View } from 'react-native'
 import React, { useState } from 'react'
 import { DrawerContentComponentProps, DrawerContentScrollView } from '@react-navigation/drawer'
 import { SizeConfig } from '../../../component/SizeConfig'
-import  { DrawerLinksButtons, DrawerOtherSectionNavBtnComp, HeadderSection, ThemControlerBtns } from './Healper'
+import { DrawerLinksButtons, DrawerOtherSectionNavBtnComp, HeadderSection, ThemControlerBtns } from './Healper'
 import { DrawerMainNavBtn, DrawerOtherSectionNavBtn } from './Data'
 import { drawerCompStyle } from './styles'
 
@@ -10,6 +10,8 @@ export default function SliderDrawerCustmComp(props: DrawerContentComponentProps
 
     const [mainBtnIndex, setMainBtnIndex] = useState(-1);
     const [drawerOtherBtnIndex, setDrawerOtherBtnIndex] = useState(-1)
+
+
 
 
     return (
@@ -39,6 +41,7 @@ export default function SliderDrawerCustmComp(props: DrawerContentComponentProps
                                         index={index}
                                         setMainBtnIndex={setMainBtnIndex}
                                         setDrawerOtherBtnIndex={setDrawerOtherBtnIndex}
+                                        navigation={props.navigation}
                                     />
                                 )
                             }
@@ -63,6 +66,7 @@ export default function SliderDrawerCustmComp(props: DrawerContentComponentProps
                                             index={index}
                                             setDrawerOtherBtnIndex={setDrawerOtherBtnIndex}
                                             setMainBtnIndex={setMainBtnIndex}
+                                           
                                         />
                                     )
                                 }
